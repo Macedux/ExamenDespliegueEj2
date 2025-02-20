@@ -1,0 +1,29 @@
+ services:
+  db:
+    image: admahe01/phpconcesionario:v1
+    container_name: phpconcesionario
+    environment:
+      MYSQL_ROOT_PASSWORD: concesionario1234
+      MYSQL_DATABASE: concesionario
+      MYSQL_USER: utilitario
+      MYSQL_PASSWORD: utilitario1234
+    ports:
+      - "3306:3306"
+  php:
+    image: admahe01/phpconcesionario:v1
+    container_name: phpconcesionario
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: contenedorPhpMyAdmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: concesionario1234
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
